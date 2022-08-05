@@ -72,7 +72,7 @@ class SLL{
         }
     }
 
- /**
+    /**
      * Converts this list into an array containing the data of each node.
      * - Time: O(n) linear.
      * - Space: O(n).
@@ -80,14 +80,14 @@ class SLL{
      */
     toArr() {
         const arr = [];
-         let ptr = this.head;
-         while (ptr) {
+        let ptr = this.head;
+        while (ptr) {
             arr.push(v);
-         }
-         return arr;
+        }
+        return arr;
     }
- 
- /**
+
+    /**
     * Creates a new node with the given data and inserts it at the back of
     * this list.
     * - Time: O(?).
@@ -108,6 +108,59 @@ class SLL{
         }
         this.insertAtBackRecursive(data, runner.next);
     }
+
+    /**
+ * Removes the last node of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {any} The data from the node that was removed.
+ */
+removeBack() {
+    if (this.isEmpty()) return null;
+    if (!this.head.next) {
+        const val = this.head.value;
+        this.head = null;
+        return val;
+    }
+    let ptr = this.head;
+    while (ptr.next.next) {
+        ptr = ptr.next;
+    }
+    const val = ptr.next.value;
+    ptr.next = null;
+    return val;
+}
+
+/**
+ * Determines whether or not the given search value exists in this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} val The data to search for in the nodes of this list.
+ * @returns {boolean}
+ */
+contains(val) {
+    let ptr = this.head;
+    while (ptr) {
+        if (ptr.value == val) return true;
+        ptr = ptr.next;
+    }
+    return false;
+}
+
+/**
+ * Determines whether or not the given search value exists in this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} val The data to search for in the nodes of this list.
+ * @param {?ListNode} current The current node during the traversal of this list
+ *    or null when the end of the list has been reached.
+ * @returns {boolean}
+ */
+containsRecursive(val, current = this.head) {
+    if (!!current) return false;
+    if (current.value === val) return true;
+    this.containsRecursive(val, current.next);
+}
 }
 
 const head = new SLL();
@@ -126,3 +179,12 @@ head.display();
 head.insertAtBackRecursive("Jay");
 head.insertAtBackRecursive("Steve");
 head.display();
+
+head.removeBack();
+head.display();
+
+console.log(head.contains("Gail"));
+console.log(head.contains("Bev"));
+
+console.log(head.containsRecursive("David"));
+console.log(head.containsRecursive("Steve"));
