@@ -1,0 +1,11 @@
+public class Mammal {
+	protected int energy; 
+
+	public Mammal() {
+		this.energy = 100;
+	}
+	public int displayEnergy() {
+		System.out.println("energy level: " + energy);
+		return energy;
+	}
+}
