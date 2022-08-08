@@ -161,6 +161,49 @@ containsRecursive(val, current = this.head) {
     if (current.value === val) return true;
     this.containsRecursive(val, current.next);
 }
+
+/**
+ * Retrieves the data of the second to last node in this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {any} The data of the second to last node or null if there is no
+ *    second to last node.
+ */
+    secondToLast() {
+        if (this.head == null || this.head.next == null)
+            return null;
+        let ptr = this.head;
+        while(ptr.next.next != null) {
+            ptr = ptr.next;
+        }
+        return ptr.value;
+    }
+
+/**
+  * Removes the node that has the matching given val as it's data.
+  * - Time: O(?).
+  * - Space: O(?).
+  * @param {any} val The value to compare to the node's data to find the
+  *    node to be removed.
+  * @returns {boolean} Indicates if a node was removed or not.
+  */
+    removeVal(val) {
+        if (this.head == null) 
+            return false;
+        if (this.head.value == val) {
+            this.head = this.head.next;
+            return true;
+        }
+        let ptr = this.head;
+        while (ptr.next != null) {
+            if (ptr.next.value == val) {
+                ptr.next = ptr.next.next;
+                return true;
+            } 
+            ptr = ptr.next;
+        }
+        return false;
+    }
 }
 
 const head = new SLL();
@@ -188,3 +231,11 @@ console.log(head.contains("Bev"));
 
 console.log(head.containsRecursive("David"));
 console.log(head.containsRecursive("Steve"));
+
+head.display();
+console.log("secondToLast:  ", head.secondToLast());
+
+head.removeVal("Gail");
+head.display();
+
+console.log("secondToLast: ", head.secondToLast());
