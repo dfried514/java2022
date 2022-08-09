@@ -204,38 +204,85 @@ containsRecursive(val, current = this.head) {
         }
         return false;
     }
+
+    /**
+ * Inserts a new node before a node that has the given value as its data.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} newVal The value to use for the new node that is being added.
+ * @param {any} targetVal The value to use to find the node that the newVal
+ *    should be inserted in front of.
+ * @returns {boolean} To indicate whether the node was pre-pended or not.
+ */
+ prepend(newVal, targetVal) {
+    if (this.head == null) return;
+    if (this.head.value == targetVal) {
+        const newNode = new Node(newVal);
+        newNode.next = this.head;
+        this.head = newNode;
+        return;
+    }
+    let ptr = this.head;
+    while (ptr.next != null) {
+        if (ptr.next.value == targetVal) {
+            const newNode = new Node(newVal);
+            newNode.next = ptr.next;
+            ptr.next = newNode;
+            break;
+        }
+        ptr = ptr.next;
+    }
+ }
+
+ /**
+ * Finds the node with the smallest data and moves that node to the front of
+ * this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {SinglyLinkedList} This list.
+ */
+moveMinToFront() {
+    if (this.head == null) return;
+    let min = this.head.value;
+    let ptr = this.head.next;
+    // find min value in list
+    while (ptr != null) {
+        min = Math.min(min, ptr.value);
+        ptr = ptr.next;
+    }
+    if (this.head.value == min) return;
+    // remove node with min value
+    this.removeVal(min);
+    // add node with min value to front
+    this.insertAtFront(min);
+}
 }
 
 const head = new SLL();
-console.log(head.isEmpty());
+head.insertAtBack(5);
+head.insertAtBack(10);
+head.insertAtBack(15);
+head.insertAtBack(3);
+head.insertAtBack(12);
 
-head.insertAtFront("David");
-head.insertAtFront("Mack");
+console.log("-------");
+head.display();
+head.prepend(7, 5);
+head.display();
+head.prepend(17, 3);
+head.display();
+head.prepend(19, 4);
+head.display();
+head.prepend(6, 12);
 head.display();
 
-head.insertAtBack("Gail");
+console.log("-------");
+head.moveMinToFront();
 head.display();
 
-head.removeFromFront();
+head.insertAtBack(2);
 head.display();
-
-head.insertAtBackRecursive("Jay");
-head.insertAtBackRecursive("Steve");
+head.moveMinToFront();
 head.display();
-
-head.removeBack();
+head.moveMinToFront();
 head.display();
-
-console.log(head.contains("Gail"));
-console.log(head.contains("Bev"));
-
-console.log(head.containsRecursive("David"));
-console.log(head.containsRecursive("Steve"));
-
-head.display();
-console.log("secondToLast:  ", head.secondToLast());
-
-head.removeVal("Gail");
-head.display();
-
-console.log("secondToLast: ", head.secondToLast());
