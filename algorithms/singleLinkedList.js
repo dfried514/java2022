@@ -256,9 +256,69 @@ moveMinToFront() {
     // add node with min value to front
     this.insertAtFront(min);
 }
+
+/**
+ * Concatenates the nodes of a given list onto the back of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {SinglyLinkedList} addList An instance of a different list whose
+ *    whose nodes will be added to the back of this list.
+ * @returns {SinglyLinkedList} This list with the added nodes.
+ */
+ concat(addList) {
+    if (this.head == null) {
+        this.head = addList.head;
+        return;
+    }
+    let ptr = this.head;
+    while (ptr.next != null) {
+        ptr = ptr.next;
+    }
+    ptr.next = addList.head;
+ }
+
+ /**
+ * Splits this list into two lists where the 2nd list starts with the node
+ * that has the given value.
+ * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
+ * and the return value will be a new list containing (5=>2=>4)
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} val The value in the node that the list should be split on.
+ * @returns {SinglyLinkedList} The split list containing the nodes that are
+ *    no longer in this list.
+ */
+splitOnVal(val) {
+    let ptr = this.head;
+    while (ptr != null && ptr.next.value != val) {
+        ptr = ptr.next;
+    }
+    if (ptr == null) return;
+    let res = ptr.next;
+    ptr.next = null;
+    return res;
 }
 
-const head = new SLL();
+/**
+ * Recursively finds the maximum integer data of the nodes in this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {ListNode} runner The start or current node during traversal, or null
+ *    when the end of the list is reached.
+ * @param {ListNode} maxNode Keeps track of the node that contains the current
+ *    max integer as it's data.
+ * @returns {?number} The max int or null if none.
+ */
+recursiveMax(runner = this.head, maxNode = this.head) {
+    if (this.isEmpty()) return null;
+    if (runner == null) return maxNode.value;
+    if (maxNode.value < runner.value) 
+        return this.recursiveMax(runner.next, runner);
+    return this.recursiveMax(runner.next, maxNode);
+}
+}
+
+let head = new SLL();
 head.insertAtBack(5);
 head.insertAtBack(10);
 head.insertAtBack(15);
@@ -286,3 +346,26 @@ head.moveMinToFront();
 head.display();
 head.moveMinToFront();
 head.display();
+
+console.log("...........");
+let newHead = head.splitOnVal(15);
+head.display();
+let ptr = newHead;
+let output = "";
+while (ptr != null) {
+    output += ptr.value + " --> ";
+    ptr = ptr.next;
+}
+output += "null";
+console.log(output);
+
+console.log(".......");
+head.display();
+const difHead = new SLL();
+difHead.insertAtBack(6);
+difHead.insertAtBack(12);
+difHead.insertAtBack(18);
+head.concat(difHead);
+head.display();
+
+console.log(head.recursiveMax(this.head, this.head));
