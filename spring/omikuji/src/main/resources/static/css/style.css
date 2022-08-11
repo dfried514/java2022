@@ -1,0 +1,12 @@
+* {
+	text-align: center;
+}
+span {
+   display: inline-block;
+   padding: 15px 10px;
+   width: 300px;
+   height: min-content;
+   text-align: center;
+   background: lightblue;
+   border: 1px solid black;
+}

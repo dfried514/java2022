@@ -8,6 +8,9 @@
 <title>Counter</title>
 </head>
 <body>
-	<h1>My name is:  <c:out value="${name}"/></h1>
+	<h1>Welcome User!</h1>
+	<form action="/your_server/reset">
+		<input type=submit value="Reset Counter">
+	</form>
 </body>
 </html>
