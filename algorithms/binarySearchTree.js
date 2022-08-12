@@ -108,11 +108,54 @@ inorderDisplay() {
     rec(this.root);
     return output + "null";
 }
+
+/**
+   * Retrieves the smallest integer data from this tree.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {Node} current The node that is currently accessed from the tree as
+   *    the tree is being traversed.
+   * @returns {number} The smallest integer from this tree.
+   */
+ minRecursive(current = this.root) {
+    if (!current) return null;
+    if (!current.left) return current.data;
+    return this.minRecursive(current.left);   
+ }
+
+ /**
+ * Determines if this tree contains the given searchVal.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {number} searchVal The number to search for in the node's data.
+ * @returns {boolean} Indicates if the searchVal was found.
+ */
+contains(searchVal) {
+    let ptr = this.root;
+    while (ptr) {
+        if (ptr.data == searchVal) return true;
+        if (ptr.data > searchVal) ptr = ptr.left;
+        else ptr = ptr.right;
+    }
+    return false;
+}
+
+/**
+ * Determines if this tree contains the given searchVal.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {number} searchVal The number to search for in the node's data.
+ * @returns {boolean} Indicates if the searchVal was found.
+ */
+containsRecursive(searchVal, current = this.root) {
+    if (!current) return false;
+    if (current.data == searchVal) return true;
+    if(current.data > searchVal) return this.containsRecursive(searchVal, current.left);
+    return this.containsRecursive(searchVal, current.right);
+}
 }
 
 const root = new BinarySearchTree();
-console.log("empty root", root.isEmpty());
-console.log("min of empty root", root.min());
 root.insert(10);
 root.insert(15);
 root.insert(5);
@@ -124,5 +167,8 @@ root.insert(3);
 root.insert(4);
 
 console.log(root.inorderDisplay());
-console.log("min val", root.min());
-console.log("not empty", root.isEmpty());
+console.log('recursive min:', root.minRecursive());
+console.log('contains 13?', root.contains(13));
+console.log('contains 15?', root.contains(15));
+console.log('recursive contains 1?', root.containsRecursive(17));
+console.log('recursive contains 7?', root.containsRecursive(7));
