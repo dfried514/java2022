@@ -1,0 +1,21 @@
+.container {
+	display: flex;
+}
+
+.item {
+	display: inline-block;
+	width: 200px;
+	border: 2px solid black;
+	text-align: center;
+	margin: 0 10px auto;
+	padding: 10px 0;
+}
+
+
+.positiveActivity {
+	color: green;
+}
+
+.negativeActivity {
+	color: red;
+}
