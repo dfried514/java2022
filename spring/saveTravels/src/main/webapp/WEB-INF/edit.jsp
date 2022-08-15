@@ -11,40 +11,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Expenses</title>
+	<title>Edit Expense</title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"> 
 </head>
 <body>
-	<h1>Save Travels</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Expense</th>
-				<th>Vendor</th>
-				<th>Amount</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="expense" items="${expenses}">
-				<tr>
-					<td><a href="/expenses/${expense.id}"><c:out value="${expense.name}"/></a></td>
-					<td><c:out value="${expense.vendor}"/></td>
-					<td>
-						<fmt:setLocale value="en_US"/>
-						<fmt:formatNumber type="currency" value="${expense.amount}"/>
-					</td>
-					<td><a href="/expenses/edit/${expense.id}">edit</a></td>
-					<td>
-						<form action="/expenses/delete/${expense.id}" method="post">
-							<input type="submit" value="delete">
-						</form>
-					</td>
-				</tr>
-    		</c:forEach> 		
-		</tbody>
-	</table>
-	<h2>Add an expense:</h2>
-	<form:form action="/expenses/create" method="post" modelAttribute="expense">
+	<h1>Edit Expense</h1>
+	<form:form action="/expenses/update/${expense.id}" method="post" modelAttribute="expense">
     	<form:label path="name">Expense Name:</form:label>
     	<form:errors class="errorMessage" path="name"/>
   		<form:input type="text" path="name"/>
@@ -63,5 +35,6 @@
 		<br><br>
 		<input type="submit" value="Submit"/>
     </form:form>
+    <p><a href="/expenses">Go back</a></p>
 </body>
 </html>

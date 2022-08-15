@@ -40,6 +40,15 @@ public class ExpenseService {
 			return null;
 		}
 	}
+	public Expense updateExpense(Long id, Expense expense) {
+		Optional<Expense> optionalExpense = expenseRepository.findById(id);
+		if (optionalExpense.isPresent()) {
+			expense.setId(id);
+			return expenseRepository.save(expense);
+		} else {
+			return null;
+		}
+	}
 	public void deleteExpense(Long id) {
 		expenseRepository.deleteById(id);
 	}

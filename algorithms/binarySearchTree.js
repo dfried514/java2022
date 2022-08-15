@@ -153,6 +153,29 @@ containsRecursive(searchVal, current = this.root) {
     if(current.data > searchVal) return this.containsRecursive(searchVal, current.left);
     return this.containsRecursive(searchVal, current.right);
 }
+
+/**
+ * Calculates the range (max - min) from the given startNode.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {Node} startNode The node to start from to calculate the range.
+ * @returns {number|null} The range of this tree or a sub tree depending on if the
+ *    startNode is the root or not.
+ */
+ range() {}
+ // Advice: make a max() and use it together with min()
+
+ /**
+ * Inserts a new node with the given newVal in the right place to preserver
+ * the order of this tree.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {number} newVal The data to be added to a new node.
+ * @param {Node} curr The node that is currently accessed from the tree as
+ *    the tree is being traversed.
+ * @returns {BinarySearchTree} This tree.
+ */
+insertRecursive(newVal, curr = this.root) {}
 }
 
 const root = new BinarySearchTree();
