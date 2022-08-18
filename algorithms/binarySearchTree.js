@@ -176,6 +176,89 @@ containsRecursive(searchVal, current = this.root) {
  * @returns {BinarySearchTree} This tree.
  */
 insertRecursive(newVal, curr = this.root) {}
+
+/**
+ * DFS Inorder: (Left, CurrNode, Right)
+ * Converts this BST into an array following Depth First Search inorder.
+ * See debugger call stack to help understand the recursion.
+ * @param {Node} node The current node during the traversal of this tree.
+ * @param {Array<number>} vals The data that has been visited so far.
+ * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+ */
+ toArrInorder(node = this.root, vals = []) {
+    if (!node) return vals;
+    this.toArrInorder(node.left, vals);
+    vals.push(node.data);
+    this.toArrInorder(node.right, vals);
+    return vals;
+ }
+
+/**
+ * DFS Preorder: (CurrNode, Left, Right)
+ * Converts this BST into an array following Depth First Search preorder.
+ * @param {Node} node The current node during the traversal of this tree.
+ * @param {Array<number>} vals The data that has been visited so far.
+ * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+ */
+ toArrPreorder(node = this.root, vals = []) {
+    if (!node) return vals;
+    vals.push(node.data);
+    this.toArrPreorder(node.left, vals);
+    this.toArrPreorder(node.right, vals);
+    return vals;
+ }
+
+/**
+ * DFS Postorder (Left, Right, CurrNode)
+ * Converts this BST into an array following Depth First Search postorder.
+ * @param {Node} node The current node during the traversal of this tree.
+ * @param {Array<number>} vals The data that has been visited so far.
+ * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+ */
+ toArrPostorder(node = this.root, vals = []) {
+    if (!node) return vals;
+    this.toArrPostorder(node.left, vals);
+    this.toArrPostorder(node.right, vals);
+    vals.push(node.data);
+    return vals;
+ }
+
+ /**
+ * BFS order: horizontal rows top-down left-to-right.
+ * Converts this BST into an array following Breadth First Search order.
+ * Example on the fullTree var:
+ * [25, 15, 50, 10, 22, 35, 70, 4, 12, 18, 24, 31, 44, 66, 90]
+ * @param {Node} current The current node during the traversal of this tree.
+ * @returns {Array<number>} The data of all nodes in BFS order.
+ */
+  toArrLevelorder(current = this.root) {
+    if (this.isEmpty()) return [];
+    const res = [];
+    const nodeArr = [current];
+    while (nodeArr.length > 0) {
+        let curNode = nodeArr.shift();
+        res.push(curNode.data);
+        if (curNode.left) nodeArr.push(curNode.left);
+        if (curNode.right) nodeArr.push(curNode.right);
+    }
+    return res;
+  }
+
+  /**
+   * Recursively counts the total number of nodes in this tree.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {Node} node The current node during the traversal of this tree.
+   * @returns {number} The total number of nodes.
+   */
+  size(node = this.root) {}
+ 
+ 
+ //          50
+ //      25      75
+ //   10   40  60   90
+ 
+ // [50, 25, 75, 10, 40, 60, 90]
 }
 
 const root = new BinarySearchTree();
@@ -190,8 +273,7 @@ root.insert(3);
 root.insert(4);
 
 console.log(root.inorderDisplay());
-console.log('recursive min:', root.minRecursive());
-console.log('contains 13?', root.contains(13));
-console.log('contains 15?', root.contains(15));
-console.log('recursive contains 1?', root.containsRecursive(17));
-console.log('recursive contains 7?', root.containsRecursive(7));
+console.log(root.toArrInorder());
+console.log(root.toArrPreorder());
+console.log(root.toArrPostorder());
+console.log(root.toArrLevelorder());
