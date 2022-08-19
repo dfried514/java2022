@@ -259,6 +259,37 @@ insertRecursive(newVal, curr = this.root) {}
  //   10   40  60   90
  
  // [50, 25, 75, 10, 40, 60, 90]
+
+ /**
+   * Calculates the height of the tree which is based on how many nodes from
+   * top to bottom (whichever side is taller).
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {Node} node The current node during traversal of this tree.
+   * @returns {number} The height of the tree.
+   */
+  height(node = this.root) {
+    if (!node) return 0;
+    // recursively compute max of left and right subtrees, add 1 for the current node
+    return 1 + Math.max(this.height(node.left), this.height(node.right));
+  }
+
+  /**
+   * Determines if this tree is a full tree. A full tree is a tree where every
+   * node has both a left and a right except for the leaf nodes (last nodes)
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {Node} node The current node during traversal of this tree.
+   * @returns {boolean} Indicates if this tree is full.
+   */
+    isFull(node = this.root) {
+        // no children
+        if (!node) return true;
+        // one child, not full, return false
+        if ((node.left && !node.right) || (node.right && !node.left)) return false;
+        // recursively check left AND right subtrees
+        return this.isFull(node.left) && this.isFull(node.right);
+    }
 }
 
 const root = new BinarySearchTree();
@@ -266,14 +297,16 @@ root.insert(10);
 root.insert(15);
 root.insert(5);
 root.insert(12);
-root.insert(18);
-root.insert(16);
-root.insert(7);
-root.insert(3);
-root.insert(4);
+ root.insert(18);
+ root.insert(16);
+ root.insert(7);
+ root.insert(3);
+ root.insert(4);
 
 console.log(root.inorderDisplay());
-console.log(root.toArrInorder());
-console.log(root.toArrPreorder());
-console.log(root.toArrPostorder());
-console.log(root.toArrLevelorder());
+// console.log(root.toArrInorder());
+// console.log(root.toArrPreorder());
+// console.log(root.toArrPostorder());
+// console.log(root.toArrLevelorder());
+console.log('height', root.height());
+console.log('is full?', root.isFull());
