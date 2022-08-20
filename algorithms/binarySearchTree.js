@@ -290,6 +290,40 @@ insertRecursive(newVal, curr = this.root) {}
         // recursively check left AND right subtrees
         return this.isFull(node.left) && this.isFull(node.right);
     }
+
+    /**
+ * Removes the node that has the matching given val as its data
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} The value to compare to the node's data to find the
+ *    node to be removed.
+ * @returns {boolean} Indicates if the node was removed or not.
+ */
+ removeVal( val ) {}
+
+ /**
+  * Finds all the values that are repeated in the binary search tree
+  * - Time: O(?).
+  * - Space: O(?).
+  * @returns {Array<Number>} The values that are repeated in the binary search tree
+  */
+    findDuplicates(current = this.root, result = []) {
+        if (!current) return result;
+        let ptr = current.right;
+        while (ptr) {
+            if (ptr.data == current.data && !result.includes(ptr.data)) {
+                result.push(ptr.data);
+                break;
+            }
+            if (ptr.data > current.data)
+                ptr = ptr.left;
+            else 
+                ptr = ptr.right;
+        }
+        this.findDuplicates(current.left, result);
+        this.findDuplicates(current.right, result);
+        return result;
+    }
 }
 
 const root = new BinarySearchTree();
@@ -297,16 +331,17 @@ root.insert(10);
 root.insert(15);
 root.insert(5);
 root.insert(12);
- root.insert(18);
- root.insert(16);
- root.insert(7);
- root.insert(3);
- root.insert(4);
+root.insert(15);
+root.insert(10);
+root.insert(7);
+root.insert(15);
+root.insert(5);
 
 console.log(root.inorderDisplay());
 // console.log(root.toArrInorder());
 // console.log(root.toArrPreorder());
 // console.log(root.toArrPostorder());
-// console.log(root.toArrLevelorder());
-console.log('height', root.height());
-console.log('is full?', root.isFull());
+console.log(root.toArrLevelorder());
+// console.log('height', root.height());
+// console.log('is full?', root.isFull());
+console.log('duplicates', root.findDuplicates());
