@@ -2,12 +2,15 @@ package com.friedman.loginandregistration.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -65,6 +68,10 @@ public class User {
     @Pattern(regexp ="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,128}$"
     	, message = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be 8 - 128 characters long.")
     private String confirm;
+    
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Book> books;
+    
   
     public User() {}
 
@@ -210,6 +217,20 @@ public class User {
 
 	public void setConfirm(String confirm) {
 		this.confirm = confirm;
+	}
+	
+	
+
+
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 
 

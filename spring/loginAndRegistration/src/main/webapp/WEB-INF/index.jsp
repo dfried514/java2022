@@ -11,11 +11,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Read Share</title>
 </head>
 <body>
-	<h1>Welcome!</h1>
-	<h3>Join our growing community.</h3>
+	<h1>Book Club</h1>
+	<h3>A place for friends to share thoughts on books.</h3>
 	<h1>Register</h1>
 	<form:form action="/register" method="post" modelAttribute="newUser">
     	<form:label path="userName">User Name:</form:label>
