@@ -95,13 +95,13 @@ public class HomeController {
 	 return "newBook.jsp";
  }
  
- @RequestMapping(value="/books/edit/{bookId}", method=RequestMethod.PUT)
- public String updateBook(@PathVariable("bookId") Long bookId,
+ @RequestMapping(value="/books/edit/{id}", method=RequestMethod.PUT)
+ public String updateBook(@PathVariable("id") Long id,
 		 @Valid @ModelAttribute("book") Book book, BindingResult result) {
 	 if (result.hasErrors())
 		 return "editBook.jsp";
 	 else {
-		 bookServ.updateBook(bookId, book);
+		 bookServ.updateBook(id, book);
 		 return "redirect:/books";
 	 }
  }
